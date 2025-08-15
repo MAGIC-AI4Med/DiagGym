@@ -26,6 +26,7 @@ All models are available on Hugging Face for reproduction and extension.
 <img src="assets/teaser.png"/> 
 
 
+
 ## How to Use
 ### 🏥DiagGym
 The following example shows how to generate examination results using DiagGym.
