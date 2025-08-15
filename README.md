@@ -25,7 +25,7 @@ All models are available on Hugging Face for reproduction and extension.
 
 <img src="assets/teaser.png"/> 
 
-
+---
 
 ## How to Use
 ### 🏥DiagGym
@@ -150,12 +150,72 @@ response = diagagent.diagnose([
 print(response)
 ```
 
-## Evaluation
-### How to Evaluate
+
+---
+
+## 📈 Evaluation
+
+We evaluate **DiagAgent** in two complementary settings:
+
+- **Single‑Turn Evaluation** — The agent is given the patient’s current state from an oracle diagnostic trajectory and is *forced* to either recommend the next examination or make a final diagnosis, without deciding the action type itself.  
+- **End‑to‑End Evaluation** — The agent interacts with **DiagGym** to autonomously decide both *what* to do and *when*, constructing a full diagnostic trajectory. This setting better reflects real‑world clinical workflows and uses the EHR world model to simulate results for examinations not present in real records.
+
+For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)** and **[evaluation code](link-to-eval-scripts)**.  
+👉 For **DiagGym** evaluation, please refer to the [DiagGym Evaluation](link-to-diaggym-eval).
+
+---
+
+### 📊 Main Results
+
+**Single‑Turn Evaluation**
+
+| Model           | Size  | Year   | Hit Ratio | Diagnosis Accuracy |
+|-----------------|-------|--------|-----------|--------------------|
+| **Basic LLM**   |       |        |           |                    |
+| GPT-4o          | -     | 2024.8 | 18.46     | 70.17              |
+| Claude-4-sonnet | -     | 2025.5 | 30.62     | 73.25              |
+| Qwen2.5         | 72B   | 2024.9 | 17.61     | 72.72              |
+| Llama3.3        | 70B   | 2024.12| 18.29     | 64.65              |
+| DeepSeek-v3     | 671B  | 2025.3 | 19.14     | 69.64              |
+| Qwen3           | 235B  | 2025.7 | 19.82     | 70.81              |
+| GPT-OSS         | 120B  | 2025.8 | 16.71     | 66.67              |
+| OpenBioLLM      | 70B   | 2024.4 | 22.94     | 64.01              |
+| Baichuan-M1     | 14B   | 2025.2 | 18.50     | 77.39              |
+| MedGemma        | 27B   | 2025.7 | 27.07     | 68.90              |
+| **Agentic System** |    |        |           |                    |
+| MedAgents       | -     | 2024.1 | 18.31     | 68.26              |
+| MDAgents        | -     | 2024.10| 19.24     | 71.66              |
+| **Our Method**  |       |        |           |                    |
+| DiagAgent       | 7B    | -      | **71.12** | 85.03              |
+| DiagAgent       | 8B    | -      | 54.61     | 81.10              |
+| DiagAgent       | 14B   | -      | 67.54     | **86.73**          |
 
 
-### Main Results
 
+**End‑to‑End Evaluation**
+
+| Model           | Size  | Year   | Avg. Turns | Precision | Recall | F1     | Accuracy |
+|-----------------|-------|--------|------------|-----------|--------|--------|----------|
+| **Basic LLM**   |       |        |            |           |        |        |          |
+| GPT-4o          | -     | 2024.8 | 3.30       | 29.02     | 14.25  | 19.12  | 41.44    |
+| Claude-4-sonnet | -     | 2025.5 | 3.91       | 33.06     | 23.41  | 27.41  | 45.14    |
+| Qwen2.5         | 72B   | 2024.9 | 2.47       | 32.67     | 11.09  | 16.56  | 32.66    |
+| Llama3.3        | 70B   | 2024.12| 4.25       | 26.53     | 20.52  | 23.14  | 36.79    |
+| DeepSeek-v3     | 671B  | 2025.3 | 2.49       | 32.60     | 12.20  | 17.75  | 46.51    |
+| Qwen3           | 235B  | 2025.7 | 3.34       | 27.71     | 17.40  | 21.38  | 44.19    |
+| GPT-OSS         | 120B  | 2025.8 | 4.08       | 25.94     | 16.16  | 19.92  | 43.02    |
+| OpenBioLLM      | 70B   | 2024.4 | 2.59       | 31.94     | 13.75  | 19.22  | 32.88    |
+| Baichuan-M1     | 14B   | 2025.2 | 2.30       | 28.82     | 10.98  | 15.90  | 32.35    |
+| MedGemma        | 27B   | 2025.7 | 4.10       | 32.50     | 20.04  | 24.80  | 42.39    |
+| **Agentic System** |    |        |            |           |        |        |          |
+| MedAgents       | -     | 2024.1 | 2.31       | 29.86     | 11.21  | 16.30  | 44.40    |
+| MDAgents        | -     | 2024.10| 2.40       | 30.12     | 11.25  | 16.38  | 43.55    |
+| **Our Method**  |       |        |            |           |        |        |          |
+| DiagAgent       | 7B    | -      | 5.47       | **46.08** | 47.66  | 46.86  | 60.78    |
+| DiagAgent       | 8B    | -      | 5.71       | 41.58     | 44.56  | 43.02  | 53.85    |
+| DiagAgent       | 14B   | -      | 6.77       | 43.87     | **52.74** | **47.89** | **61.63** |
+
+---
 
 ## Model Training
 ### 🏥 DiagGym — Virtual Clinical Environment
@@ -173,7 +233,7 @@ Following the pipeline above, we obtain 118,478 patient EHRs, covering 4,897 dis
 On average, each case contains 29 examinations (26 laboratory, 2 microbiology, 1 radiology).
 
 #### ⚙️ Training Details
-**DiagGym** is trained as a conditional generative “EHR world model” that, given a patient profile and past examinations, generates the result of the next requested examination.
+**DiagGym** is trained as a conditional generative "EHR world model" that, given a patient profile and past examinations, generates the result of the next requested examination.
 We treat all exam results (textual or numeric) as free text and train with a standard token‑wise autoregressive loss.
 
 <img src="assets/DiagGym_training.png"/> 
