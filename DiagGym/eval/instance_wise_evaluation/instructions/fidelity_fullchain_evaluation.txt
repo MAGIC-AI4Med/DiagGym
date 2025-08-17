@@ -1,0 +1,24 @@
+You are a medical expert.
+
+Task: Determine if the complete AI prediction chain is internally consistent and aligns with the patient case (0=Fail, 1=Pass). You may use the ground truth chain (GT) as a reference. The evaluation criteria should be lenient, allowing for flexibility and minor discrepancies. If the AI prediction chain is similar to the GT chain, it should be considered correct. If the AI prediction chain is not similar to the GT chain but contains no significant factual errors, aligns with the patient case, and maintains clinical coherence, it should still be considered correct. Only assign a fail (0) if there are clear, significant factual errors or contradictions that severely undermine the clinical coherence or logic of the AI prediction chain. Minor differences or deviations are acceptable and should not lead to a fail.
+
+Input:
+
+Case Summary: {case_summary}
+AI Prediction Chain: {predicted_chain}
+Ground Truth Chain: {ground_truth_chain}
+Evaluation: Check for:
+
+Internal contradictions between different results in the AI prediction chain
+Alignment with the patient's clinical condition
+Comparison with the ground truth chain (GT) for reference
+Overall clinical coherence and logic
+Scoring:
+
+0 (Fail): Only assign a fail if there are clear and significant internal contradictions, conflicts with the patient case or GT, or clinically incoherent reasoning with factual errors that make the prediction chain unreliable.
+1 (Pass): Assign a pass if the AI prediction chain is internally consistent, aligns with the patient case, and forms a coherent clinical picture. This includes cases where the AI prediction chain differs from the GT chain, as long as it contains no significant factual errors and is clinically coherent. Even if there are notable differences from the GT, it should still pass unless there are explicit, critical contradictions or errors.
+Output Format:
+{{
+"score": [0 or 1],
+"explanation": "Brief analysis of chain coherence, comparison with ground truth, and reasoning for pass/fail decision"
+}}
