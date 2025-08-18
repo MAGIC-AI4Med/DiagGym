@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Dict, Optional, Sequence
 from torch.utils.data import Dataset
 from transformers import Trainer
-from dataset import MedicalMultiTurnDataset
+from Dataset import MedicalMultiTurnDataset
 
 IGNORE_INDEX = -100
 
