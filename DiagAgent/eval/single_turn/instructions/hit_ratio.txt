@@ -1,0 +1,15 @@
+Please determine if the predicted examination name matches any of the valid examination names for this case.
+
+Predicted examination: {pred_exam}
+Valid examinations for this case: {gt_exam}
+
+Please respond with "SAME" if the predicted examination matches any of the valid examinations (they refer to the same medical test or examination), or "DIFFERENT" if the predicted examination does not match any of the valid examinations.
+
+Consider examinations as the same if they:
+1. Are exactly the same name
+2. Are different names for the same medical test/procedure
+3. Are abbreviations or full forms of the same examination
+4. Are sub-items or components of any valid examination in gt_exam
+5. Are encompassed by any valid examination in gt_exam
+
+Please output SAME or DIFFERENT directly.
