@@ -6,7 +6,7 @@
 
 
 <p align="center">
-          🏥 <a href="">DiaGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="">DiaAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="">Paper Coming Soon</a> 
+          🏥 <a href="https://huggingface.co/Henrychur/DiagGym">DiaGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="https://huggingface.co/Henrychur/DiagAgent-14B">DiaAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="">Paper Coming Soon</a> 
 </p>
 
 We introduce **🏥DiagGym**, the first open‑source virtual clinical environment for training large language models (LLMs) as **diagnostic agents** with reinforcement learning (RL).  
@@ -19,8 +19,8 @@ All models are available on Hugging Face for reproduction and extension.
 
 ## 🚀 Key Insights & Contributions
 
-- 🏥 **First Open‑Source Diagnostic RL Gym** – **[DiagGym](https://huggingface.co)**: a high‑fidelity EHR world model that simulates examination outcomes for safe, interactive training and evaluation of diagnostic agents.  
-- 🤗 **RL‑Trained Diagnostic Agents** – **[DiagAgent‑7B](https://huggingface.co)**, **[DiagAgent‑8B](https://huggingface.co)**, and **[DiagAgent‑14B](https://huggingface.co)**, trained in DiagGym, surpass 12 SOTA LLMs and prompt‑engineered agents in both single‑turn and end‑to‑end diagnostic tasks.  
+- 🏥 **First Open‑Source Diagnostic RL Gym** – **[DiagGym](https://huggingface.co/Henrychur/DiagGym)**: a high‑fidelity EHR world model that simulates examination outcomes for safe, interactive training and evaluation of diagnostic agents.  
+- 🤗 **RL‑Trained Diagnostic Agents** – **[DiagAgent‑7B](https://huggingface.co/Henrychur/DiagAgent-7B)**, **[DiagAgent‑8B](https://huggingface.co/Henrychur/DiagAgent-8B)**, and **[DiagAgent‑14B](https://huggingface.co/Henrychur/DiagAgent-14B)**, trained in DiagGym, surpass 12 SOTA LLMs and prompt‑engineered agents in both single‑turn and end‑to‑end diagnostic tasks.  
 - 🎯 **Closed‑Loop Learning Advantage** – RL in a realistic simulation yields up to **15.12%** higher diagnostic accuracy and **23.09%** higher examination recommendation F1 compared to the best baseline (including DeepSeek-v3, GPT-OSS-120B, and Claude-4).
 
 <img src="assets/teaser.png"/> 
@@ -160,8 +160,8 @@ We evaluate **DiagAgent** in two complementary settings:
 - **Single‑Turn Evaluation** — The agent is given the patient’s current state from an oracle diagnostic trajectory and is *forced* to either recommend the next examination or make a final diagnosis, without deciding the action type itself.  
 - **End‑to‑End Evaluation** — The agent interacts with **DiagGym** to autonomously decide both *what* to do and *when*, constructing a full diagnostic trajectory. This setting better reflects real‑world clinical workflows and uses the EHR world model to simulate results for examinations not present in real records.
 
-For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)** and **[evaluation code](link-to-eval-scripts)**.  
-👉 For **DiagGym** evaluation, please refer to the [DiagGym Evaluation](link-to-diaggym-eval).
+For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)** and **[evaluation code](/DiagAgent/eval/)**.  
+👉 For **DiagGym** evaluation, please refer to the [DiagGym Evaluation](/DiagGym/eval/).
 
 ---
 
@@ -238,7 +238,7 @@ We treat all exam results (textual or numeric) as free text and train with a sta
 
 <img src="assets/DiagGym_training.png"/> 
 
-For full training details and implementation code, see our [paper]() and [training scripts]().
+For full training details and implementation code, see our [paper]() and [training scripts](/DiagGym/train/).
 
 
 ### 🤖 DiagAgent — RL‑Trained Diagnostic Agent
