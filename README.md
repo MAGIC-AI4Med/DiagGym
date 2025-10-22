@@ -265,7 +265,7 @@ The reward combines three components:
 
 <img src="assets/DiagAgent_training.png"/> 
 
-For full training details and implementation code, see our [paper]() and [training scripts]().
+For full training details and implementation code, see our [paper]() and [training scripts](DiagAgent/train/rl/).
 
 
 ## 📝Citation & Contact

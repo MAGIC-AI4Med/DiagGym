@@ -1,0 +1,6 @@
+working_dir: /dnn_training_sys/users/wenyou.wcy/ckpt/AgenticRL_GRPO_v2_ckpt/testv2
+excludes: ["/.git/"]
+env_vars:
+  TORCH_NCCL_AVOID_RECORD_STREAMS: "1"
+  # If you are using vllm<=0.6.3, you might need to set the following environment variable to avoid bugs:
+  # VLLM_ATTENTION_BACKEND: "XFORMERS"
