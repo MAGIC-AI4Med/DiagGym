@@ -160,12 +160,18 @@ print(response)
 We evaluate **DiagAgent** on our newly constructed benchmark, **[DiagBench](https://huggingface.co/datasets/Henrychur/DiagBench)**, in two complementary settings:
 
 ### Single‑Turn Evaluation 
+
+<img src="assets/single_turn_evaluation.png"/> 
+
 In this setting, the agent is given the patient’s state from an oracle diagnostic trajectory and is forced to make a single decision: either recommend the next examination or provide a final diagnosis. This setup isolates the model's next-step reasoning capabilities. We use two metrics:
 
 - **Hit Ratio**: Measures the relevance of examination recommendations. A "hit" occurs if the agent's suggested test appears in the patient's ground-truth medical record.
 - **Diagnosis Accuracy**: Measures the correctness of the final diagnosis when the agent is prompted to conclude the case.
 
 ### End-to-End Evaluation
+
+<img src="assets/end_to_end_evaluation.png"/> 
+
 Here, the agent engages in a multi-turn interaction with the **DiagGym** environment, starting only with the patient's initial inquiry. It must autonomously decide which examinations to request and when it has gathered enough information to make a final diagnosis. This setting reflects a realistic clinical workflow. The resulting diagnostic trajectories are assessed in two ways:
 
 - **Automatic Metrics**: We compare the agent's entire sequence of recommended exams against the ground-truth trajectory using Precision, Recall, and F1-score. The correctness of the final conclusion is measured by Diagnosis Accuracy.
