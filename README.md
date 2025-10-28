@@ -21,6 +21,8 @@ All models are available on Hugging Face for reproduction and extension.
 
 - 🏥 **First Open‑Source Diagnostic RL Gym** – **[DiagGym](https://huggingface.co/Henrychur/DiagGym)**: a high‑fidelity EHR world model that simulates examination outcomes for safe, interactive training and evaluation of diagnostic agents.  
 - 🤗 **RL‑Trained Diagnostic Agents** – **[DiagAgent‑7B](https://huggingface.co/Henrychur/DiagAgent-7B)**, **[DiagAgent‑8B](https://huggingface.co/Henrychur/DiagAgent-8B)**, and **[DiagAgent‑14B](https://huggingface.co/Henrychur/DiagAgent-14B)**, trained in DiagGym, surpass 12 SOTA LLMs and prompt‑engineered agents in both single‑turn and end‑to‑end diagnostic tasks.  
+-   📊 **Rubric-based Diagnostic Benchmark – [DiagBench](https://huggingface.co/datasets/Henrychur/DiagBench)**: A comprehensive benchmark featuring 750 cases with physician-validated examination trajectories and 99 cases annotated with 973 physician-written rubrics to evaluate the quality of the diagnostic *process*.
+-   📂 **Open-sourced Training Datasets**: We introduce and will release the first large-scale datasets for training diagnostic world models (118k EHRs) and RL-based agents (16k interactive trajectories), which will be made publicly available on PhysioNet upon approval.
 - 🎯 **Closed‑Loop Learning Advantage** – RL in a realistic simulation yields up to **15.12%** higher diagnostic accuracy and **23.09%** higher examination recommendation F1 compared to the best baseline (including DeepSeek-v3, GPT-OSS-120B, and Claude-4).
 
 <img src="assets/teaser.png"/> 
@@ -155,10 +157,19 @@ print(response)
 
 ## 📈 Evaluation
 
-We evaluate **DiagAgent** in two complementary settings:
+We evaluate **DiagAgent** on our newly constructed benchmark, **[DiagBench](https://huggingface.co/datasets/Henrychur/DiagBench)**, in two complementary settings:
 
-- **Single‑Turn Evaluation** — The agent is given the patient’s current state from an oracle diagnostic trajectory and is *forced* to either recommend the next examination or make a final diagnosis, without deciding the action type itself.  
-- **End‑to‑End Evaluation** — The agent interacts with **DiagGym** to autonomously decide both *what* to do and *when*, constructing a full diagnostic trajectory. This setting better reflects real‑world clinical workflows and uses the EHR world model to simulate results for examinations not present in real records.
+### Single‑Turn Evaluation 
+In this setting, the agent is given the patient’s state from an oracle diagnostic trajectory and is forced to make a single decision: either recommend the next examination or provide a final diagnosis. This setup isolates the model's next-step reasoning capabilities. We use two metrics:
+
+- **Hit Ratio**: Measures the relevance of examination recommendations. A "hit" occurs if the agent's suggested test appears in the patient's ground-truth medical record.
+- **Diagnosis Accuracy**: Measures the correctness of the final diagnosis when the agent is prompted to conclude the case.
+
+### End-to-End Evaluation
+Here, the agent engages in a multi-turn interaction with the **DiagGym** environment, starting only with the patient's initial inquiry. It must autonomously decide which examinations to request and when it has gathered enough information to make a final diagnosis. This setting reflects a realistic clinical workflow. The resulting diagnostic trajectories are assessed in two ways:
+
+- **Automatic Metrics**: We compare the agent's entire sequence of recommended exams against the ground-truth trajectory using Precision, Recall, and F1-score. The correctness of the final conclusion is measured by Diagnosis Accuracy.
+- **Rubric-Based Evaluation**: On a specialized subset of 99 cases annotated with 973 physician-written rubrics, we use an LLM-as-a-judge (GPT-4o) to evaluate the procedural quality of the diagnosis. This yields a weighted rubric score that assesses alignment with clinical best practices, moving beyond simple outcome accuracy.
 
 For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)** and **[evaluation code](/DiagAgent/eval/)**.  
 👉 For **DiagGym** evaluation, please refer to the [DiagGym Evaluation](/DiagGym/eval/).
@@ -192,7 +203,7 @@ For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)
 
 
 
-**End‑to‑End Evaluation**
+**End‑to‑End Evaluation (Automatic Metrics)**
 
 | Model           | Size  | Year   | Avg. Turns | Precision | Recall | F1     | Accuracy |
 |-----------------|-------|--------|------------|-----------|--------|--------|----------|
@@ -215,6 +226,26 @@ For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)
 | DiagAgent       | 8B    | -      | 5.71       | 41.58     | 44.56  | 43.02  | 53.85    |
 | DiagAgent       | 14B   | -      | 6.77       | 43.87     | **52.74** | **47.89** | **61.63** |
 
+
+**End‑to‑End Evaluation (Rubric-based Metrics)**
+| Model            | Size | Year   | Rubric Score (%) |
+|------------------|------|--------|------------------|
+| **Basic LLM**    |      |        |                  |
+| GPT-4o           | -    | 2024.8 | 18.02            |
+| Claude-4-sonnet  | -    | 2025.5 | 25.84            |
+| Qwen2.5          | 72B  | 2024.9 | 15.63            |
+| Llama3.3         | 70B  | 2024.12| 16.69            |
+| DeepSeek-v3      | -    | -      | 19.07            |
+| Qwen3            | 235B | 2025.7 | 24.49            |
+| GPT-OSS          | 120B | 2025.8 | 22.26            |
+| OpenbioLLM       | 70B  | 2024.4 | 14.11            |
+| Baichuan-M1      | 14B  | 2025.2 | 17.43            |
+| MedGemma         | 27B  | 2025.7 | 20.72            |
+| **Agentic System** |    |        |                  |
+| MedAgent         | -    | 2024.1 | 19.49            |
+| MDAgent          | -    | 2024.10| 21.64            |
+| **Our Method**   |      |        |                  |
+| DiagAgent-14B    | 14B  | -      | 32.86            |
 ---
 
 ## Model Training
@@ -231,6 +262,8 @@ The pipeline includes filtering (removing cases without physical exams or with p
 
 Following the pipeline above, we obtain 118,478 patient EHRs, covering 4,897 distinct diseases.
 On average, each case contains 29 examinations (26 laboratory, 2 microbiology, 1 radiology).
+
+> **Note on Data Availability**: The data source for this work is MIMIC-IV. Due to licensing restrictions, we are unable to directly open-source the processed dataset. However, we are actively communicating with the relevant parties regarding the possibility of making the dataset publicly available on [PhysioNet](https://physionet.org/).
 
 #### ⚙️ Training Details
 **DiagGym** is trained as a conditional generative "EHR world model" that, given a patient profile and past examinations, generates the result of the next requested examination.
