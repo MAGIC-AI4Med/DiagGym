@@ -6,7 +6,7 @@
 
 
 <p align="center">
-          🏥 <a href="https://huggingface.co/Henrychur/DiagGym">DiaGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="https://huggingface.co/Henrychur/DiagAgent-14B">DiaAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="">Paper Coming Soon</a> 
+          🏥 <a href="https://huggingface.co/Henrychur/DiagGym">DiaGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="https://huggingface.co/Henrychur/DiagAgent-14B">DiaAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="http://arxiv.org/abs/2510.24654">Paper</a> 
 </p>
 
 We introduce **🏥DiagGym**, the first open‑source virtual clinical environment for training large language models (LLMs) as **diagnostic agents** with reinforcement learning (RL).  
@@ -177,7 +177,7 @@ Here, the agent engages in a multi-turn interaction with the **DiagGym** environ
 - **Automatic Metrics**: We compare the agent's entire sequence of recommended exams against the ground-truth trajectory using Precision, Recall, and F1-score. The correctness of the final conclusion is measured by Diagnosis Accuracy.
 - **Rubric-Based Evaluation**: On a specialized subset of 99 cases annotated with 973 physician-written rubrics, we use an LLM-as-a-judge (GPT-4o) to evaluate the procedural quality of the diagnosis. This yields a weighted rubric score that assesses alignment with clinical best practices, moving beyond simple outcome accuracy.
 
-For detailed evaluation procedures and scripts, see our **[paper](link-to-paper)** and **[evaluation code](/DiagAgent/eval/)**.  
+For detailed evaluation procedures and scripts, see our **[paper](http://arxiv.org/abs/2510.24654)** and **[evaluation code](/DiagAgent/eval/)**.  
 👉 For **DiagGym** evaluation, please refer to the [DiagGym Evaluation](/DiagGym/eval/).
 
 ---
@@ -277,7 +277,7 @@ We treat all exam results (textual or numeric) as free text and train with a sta
 
 <img src="assets/DiagGym_training.png"/> 
 
-For full training details and implementation code, see our [paper]() and [training scripts](/DiagGym/train/).
+For full training details and implementation code, see our [paper](http://arxiv.org/abs/2510.24654) and [training scripts](/DiagGym/train/).
 
 
 ### 🤖 DiagAgent — RL‑Trained Diagnostic Agent
@@ -304,11 +304,21 @@ The reward combines three components:
 
 <img src="assets/DiagAgent_training.png"/> 
 
-For full training details and implementation code, see our [paper]() and [training scripts](DiagAgent/train/rl/).
+For full training details and implementation code, see our [paper](http://arxiv.org/abs/2510.24654) and [training scripts](DiagAgent/train/rl/).
 
 
 ## 📝Citation & Contact
 
-Our paper is comming soon ...
+'''
+@misc{qiu2025evolvingdiagnosticagentsvirtual,
+      title={Evolving Diagnostic Agents in a Virtual Clinical Environment}, 
+      author={Pengcheng Qiu and Chaoyi Wu and Junwei Liu and Qiaoyu Zheng and Yusheng Liao and Haowen Wang and Yun Yue and Qianrui Fan and Shuai Zhen and Jian Wang and Jinjie Gu and Yanfeng Wang and Ya Zhang and Weidi Xie},
+      year={2025},
+      eprint={2510.24654},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.24654}, 
+}
+'''
 
 For any inquiries or feedback, don’t hesitate to contact henrychur@sjtu.edu.cn.
