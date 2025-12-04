@@ -309,7 +309,7 @@ For full training details and implementation code, see our [paper](http://arxiv.
 
 ## 📝Citation & Contact
 
-'''
+```
 @misc{qiu2025evolvingdiagnosticagentsvirtual,
       title={Evolving Diagnostic Agents in a Virtual Clinical Environment}, 
       author={Pengcheng Qiu and Chaoyi Wu and Junwei Liu and Qiaoyu Zheng and Yusheng Liao and Haowen Wang and Yun Yue and Qianrui Fan and Shuai Zhen and Jian Wang and Jinjie Gu and Yanfeng Wang and Ya Zhang and Weidi Xie},
@@ -319,6 +319,6 @@ For full training details and implementation code, see our [paper](http://arxiv.
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2510.24654}, 
 }
-'''
+```
 
 For any inquiries or feedback, don’t hesitate to contact henrychur@sjtu.edu.cn.
