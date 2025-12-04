@@ -95,6 +95,28 @@ diaggym.simulate(context, past_events_list, exam_name)
 DiagAgent is an RL-trained large language model for interactive diagnosis.
 Unlike conventional medical LLMs that only provide a one-shot answer, DiagAgent can **recommend relevant examinations** and **adaptively update its diagnosis** over multiple dialogue turns, committing to a final decision only when sufficient information is available.
 
+#### Web Interface (Gradio)
+We provide an easy-to-use web interface for interactive diagnosis:
+
+```bash
+
+# specify a different model or local model path as needed
+python web_app_en.py --model Henrychur/DiagAgent-7B
+# or use chinese web app
+# python web_app.py --model Henrychur/DiagAgent-7B
+```
+
+Then open `http://0.0.0.0:8080` in your browser. The interface allows you to:
+1. Fill in patient information (age, sex, chief complaint, medical history)
+2. Start the diagnosis and receive examination recommendations or final diagnosis
+3. Provide examination results to continue the multi-turn diagnostic process
+
+<div align="center">
+  <img src="./assets/webui.png"/>
+  <div align="center"></div>
+</div>
+
+#### Python API
 Below is an example of running DiagAgent locally with the ``transformers`` library:
 ```py
 from transformers import AutoTokenizer, AutoModelForCausalLM
