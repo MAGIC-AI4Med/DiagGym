@@ -6,7 +6,7 @@
 
 
 <p align="center">
-          🏥 <a href="https://huggingface.co/Henrychur/DiagGym">DiaGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="https://huggingface.co/Henrychur/DiagAgent-14B">DiaAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="http://arxiv.org/abs/2510.24654">Paper</a> &nbsp&nbsp | &nbsp&nbsp 📏<a href="https://huggingface.co/datasets/Henrychur/DiagBench">DiagBench &nbsp (973 manual rubrics)</a>&nbsp&nbsp
+          🏥 <a href="https://huggingface.co/Henrychur/DiagGym">DiagGym Model</a>&nbsp&nbsp | &nbsp&nbsp 🤖 <a href="https://huggingface.co/Henrychur/DiagAgent-14B">DiagAgent Model</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="http://arxiv.org/abs/2510.24654">Paper</a> &nbsp&nbsp | &nbsp&nbsp 📏<a href="https://huggingface.co/datasets/Henrychur/DiagBench">DiagBench (2.2k cases, 3.3k manual rubrics)</a>&nbsp&nbsp
 </p>
 
 We introduce **🏥DiagGym**, the first open‑source virtual clinical environment for training large language models (LLMs) as **diagnostic agents** with reinforcement learning (RL).  
@@ -21,9 +21,9 @@ All models are available on Hugging Face for reproduction and extension.
 
 - 🏥 **First Open‑Source Diagnostic RL Gym** – **[DiagGym](https://huggingface.co/Henrychur/DiagGym)**: a high‑fidelity EHR world model that simulates examination outcomes for safe, interactive training and evaluation of diagnostic agents.  
 - 🤗 **RL‑Trained Diagnostic Agents** – **[DiagAgent‑7B](https://huggingface.co/Henrychur/DiagAgent-7B)**, **[DiagAgent‑8B](https://huggingface.co/Henrychur/DiagAgent-8B)**, and **[DiagAgent‑14B](https://huggingface.co/Henrychur/DiagAgent-14B)**, trained in DiagGym, surpass 12 SOTA LLMs and prompt‑engineered agents in both single‑turn and end‑to‑end diagnostic tasks.  
--   📊 **Rubric-based Diagnostic Benchmark – [DiagBench](https://huggingface.co/datasets/Henrychur/DiagBench)**: A comprehensive benchmark featuring 750 cases with physician-validated examination trajectories and 99 cases annotated with 973 physician-written rubrics to evaluate the quality of the diagnostic *process*.
+-   📊 **Rubric-based Diagnostic Benchmark – [DiagBench](https://huggingface.co/datasets/Henrychur/DiagBench)**: A comprehensive benchmark spanning **4 distinct clinical settings** (MIMIC-IV, PMC-OA, MTSamples, DDXPlus) with **2,257 physician-validated cases** and **3,318 weighted rubrics** for interactive diagnosis evaluation..
 -   📂 **Open-sourced Training Datasets**: We introduce and will release the first large-scale datasets for training diagnostic world models (118k EHRs) and RL-based agents (16k interactive trajectories), which will be made publicly available on PhysioNet upon approval.
-- 🎯 **Closed‑Loop Learning Advantage** – RL in a realistic simulation yields up to **15.12%** higher diagnostic accuracy and **23.09%** higher examination recommendation F1 compared to the best baseline (including DeepSeek-v3, GPT-OSS-120B, and Claude-4).
+- 🎯 **Closed‑Loop Learning Advantage** – DiagAgent consistently maintains state-of-the-art performance across all **4 centers**, surpassing the next-best model by **~10%** in physician-authored rubric scores.
 
 <img src="assets/teaser.png"/> 
 
